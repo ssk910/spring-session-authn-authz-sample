@@ -1,0 +1,37 @@
+## "admin" 권한 사용자
+
+## API에 필요한 변수 정의
+@usernmae = admin
+@password = @dm1n
+@role = admin
+
+### "admin" 권한으로 계정 등록
+POST http://localhost:8080/api/auth/join
+Content-Type: application/json
+
+{
+  "username": "{{usernmae}}",
+  "password": "{{password}}",
+  "role": "{{role}}"
+}
+
+### 로그인
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "{{usernmae}}",
+  "password": "{{password}}"
+}
+
+### 로그아웃
+POST http://localhost:8080/api/auth/logout
+
+### User API
+GET http://localhost:8080/api/users/introduce
+
+### Admin API
+GET http://localhost:8080/api/admins/introduce
+
+### Anonymous API
+GET http://localhost:8080/api/anonymous/introduce

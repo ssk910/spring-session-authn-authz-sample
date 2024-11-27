@@ -1,0 +1,13 @@
+## 아무 권한이 없는 사용자
+
+### 로그아웃
+POST http://localhost:8080/api/auth/logout
+
+### User API
+GET http://localhost:8080/api/users/introduce
+
+### Admin API
+GET http://localhost:8080/api/admins/introduce
+
+### Anonymous API
+GET http://localhost:8080/api/anonymous/introduce
