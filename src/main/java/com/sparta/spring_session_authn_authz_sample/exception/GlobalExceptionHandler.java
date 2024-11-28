@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
    * @return {@code ResponseEntity<CommonResponseBody<?>>}
    */
   @ExceptionHandler(UnauthorizedException.class)
-  protected ResponseEntity<CommonResponseBody<?>> handleUnauthorizedException(
+  public ResponseEntity<CommonResponseBody<?>> handleUnauthorizedException(
       UnauthorizedException e) {
     return ResponseEntity
         .status(e.getStatusCode())

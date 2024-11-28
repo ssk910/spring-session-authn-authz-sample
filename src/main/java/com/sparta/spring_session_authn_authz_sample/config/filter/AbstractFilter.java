@@ -8,10 +8,10 @@
  * Written by Dev Backend Team <hochan@bigin.io>, 2024. 11. 28.
  */
 
-package com.sparta.spring_session_authn_authz_sample.filter;
+package com.sparta.spring_session_authn_authz_sample.config.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.spring_session_authn_authz_sample.dto.CommonResponseBody;
+import com.sparta.spring_session_authn_authz_sample.dto.common.CommonResponseBody;
 import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;
 import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
 import jakarta.servlet.FilterChain;
@@ -33,10 +33,9 @@ import org.springframework.http.ResponseEntity;
  *
  * @author Hochan Son
  * @version 1.0
- * @see
  * @since 지원하는 자바버전 (ex : 5+ 5이상)
  */
-public abstract class AbstractFilter implements CommonAuthFilter {
+public abstract class AbstractFilter implements AuthFilter {
 
   private final ObjectMapper objectMapper;
   private final GlobalExceptionHandler exceptionHandler;
@@ -54,11 +53,11 @@ public abstract class AbstractFilter implements CommonAuthFilter {
       check(servletRequest, servletResponse);
       filterChain.doFilter(servletRequest, servletResponse);
     } catch (UnauthorizedException e) {
-      convertErrorResponse(servletResponse, exceptionHandler.handleOtherExceptions(e));
+      convertErrorResponse(servletResponse, exceptionHandler.handleUnauthorizedException(e));
     }
   }
 
-  void convertErrorResponse(ServletResponse httpServletResponse, ResponseEntity<CommonResponseBody<?>> responseEntity) throws IOException, ServletException {
+  void convertErrorResponse(ServletResponse httpServletResponse, ResponseEntity<CommonResponseBody<?>> responseEntity) throws IOException {
     HttpServletResponse response = (HttpServletResponse) httpServletResponse;
     response.setStatus(responseEntity.getStatusCode().value());
     response.setContentType(MediaType.APPLICATION_JSON_VALUE);

@@ -1,27 +1,28 @@
 package com.sparta.spring_session_authn_authz_sample.config.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;
-import jakarta.servlet.*;
+import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
+import jakarta.servlet.Filter;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpStatus;
 
-import java.io.IOException;
+import java.util.Optional;
 
 /**
  * create on 2024. 11. 28. create by IntelliJ IDEA.
  *
- * <p> 로그인 확인을 위한 필터. </p>
+ * <p> 로그인 확인을 위한 공통 필터. </p>
  *
  * @author Hochan Son
  * @version 1.0
  * @since 1.0
  */
-public class AuthFilter extends AbstractFilter {
+public interface AuthFilter extends Filter {
 
-  public AuthFilter(ObjectMapper objectMapper, GlobalExceptionHandler exceptionHandler) {
-    super(objectMapper, exceptionHandler);
-  }
-
-  protected void check(ServletRequest servletRequest, ServletResponse servletResponse) {
-    findHttpSession(servletRequest);
+  default HttpSession findHttpSession(ServletRequest request) {
+    HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+    return Optional.ofNullable(httpServletRequest.getSession(false))
+        .orElseThrow(() -> new UnauthorizedException(HttpStatus.UNAUTHORIZED, "로그인 필요"));
   }
 }

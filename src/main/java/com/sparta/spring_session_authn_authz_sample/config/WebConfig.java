@@ -1,10 +1,10 @@
 package com.sparta.spring_session_authn_authz_sample.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;
 import com.sparta.spring_session_authn_authz_sample.config.interceptor.AdminRoleInterceptor;
 import com.sparta.spring_session_authn_authz_sample.config.interceptor.AuthInterceptor;
 import com.sparta.spring_session_authn_authz_sample.config.interceptor.UserRoleInterceptor;
+import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -61,9 +61,9 @@ public class WebConfig implements WebMvcConfigurer {
    */
   /*
   @Bean
-  public FilterRegistrationBean authFilter() {
+  public FilterRegistrationBean baseAuthFilter() {
     FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-    filterRegistrationBean.setFilter(new AuthFilter(objectMapper, exceptionHandler));
+    filterRegistrationBean.setFilter(new BaseAuthFilter(objectMapper, exceptionHandler));
     filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
     filterRegistrationBean.addUrlPatterns(AUTH_REQUIRED_PATH_PATTERNS);
     return filterRegistrationBean;
