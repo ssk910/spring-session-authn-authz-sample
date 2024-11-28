@@ -20,6 +20,7 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
@@ -61,6 +62,7 @@ public abstract class AbstractFilter implements CommonAuthFilter {
     HttpServletResponse response = (HttpServletResponse) httpServletResponse;
     response.setStatus(responseEntity.getStatusCode().value());
     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+    response.setCharacterEncoding(StandardCharsets.UTF_8.displayName());
     response.getWriter().write(objectMapper.writeValueAsString(responseEntity.getBody()));
   }
 }
