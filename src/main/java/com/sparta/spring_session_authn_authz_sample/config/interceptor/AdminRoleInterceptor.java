@@ -1,4 +1,4 @@
-package com.sparta.spring_session_authn_authz_sample.interceptor;
+package com.sparta.spring_session_authn_authz_sample.config.interceptor;
 
 import com.sparta.spring_session_authn_authz_sample.constants.GlobalConstants;
 import com.sparta.spring_session_authn_authz_sample.dto.Authentication;
@@ -14,17 +14,17 @@ import org.springframework.web.servlet.HandlerInterceptor;
 /**
  * create on 2024. 11. 28. create by IntelliJ IDEA.
  *
- * <p> 유저 권한 인터셉터. </p>
+ * <p> 관리자 권한 인터셉터. </p>
  *
  * @author Seokgyu Hwang (Chris)
  * @version 1.0
  * @since 1.0
  */
 @Component
-public class UserRoleInterceptor implements HandlerInterceptor {
+public class AdminRoleInterceptor implements HandlerInterceptor {
 
   /**
-   * 유저 권한을 확인합니다.
+   * 어드민 권한을 확인합니다.
    *
    * @param request  {@code HttpServletRequest}
    * @param response {@code HttpServletResponse}
@@ -48,11 +48,10 @@ public class UserRoleInterceptor implements HandlerInterceptor {
         GlobalConstants.USER_AUTH);
     Role role = authentication.getRole();
 
-    if (role != Role.USER) {
-      throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, "user 권한이 필요합니다.");
+    if (role != Role.ADMIN) {
+      throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, "admin 권한이 필요합니다.");
     }
 
     return true;
   }
 }
-

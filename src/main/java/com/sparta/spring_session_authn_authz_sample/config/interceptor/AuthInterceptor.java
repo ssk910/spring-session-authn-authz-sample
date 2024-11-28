@@ -1,4 +1,4 @@
-package com.sparta.spring_session_authn_authz_sample.interceptor;
+package com.sparta.spring_session_authn_authz_sample.config.interceptor;
 
 import com.sparta.spring_session_authn_authz_sample.constants.GlobalConstants;
 import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
