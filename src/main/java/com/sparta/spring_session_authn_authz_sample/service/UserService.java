@@ -7,13 +7,31 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+/**
+ * create on 2024. 11. 28. create by IntelliJ IDEA.
+ *
+ * <p> 유저 권한 서비스. </p>
+ *
+ * @author Seokgyu Hwang (Chris)
+ * @version 1.0
+ * @since 1.0
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
+  /**
+   * Repository.
+   */
   private final MemberRepository memberRepository;
 
+  /**
+   * 유저 권한에 대한 로직을 수행.
+   *
+   * @param username 유저 이름
+   * @return {@link MemberResponseDto} 객체
+   */
   public MemberResponseDto performLogic(String username) {
     Member member = this.memberRepository.findByUsername(username);
 
