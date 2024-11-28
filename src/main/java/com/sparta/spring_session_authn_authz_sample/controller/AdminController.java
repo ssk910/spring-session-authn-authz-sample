@@ -1,6 +1,6 @@
 package com.sparta.spring_session_authn_authz_sample.controller;
 
-import com.sparta.spring_session_authn_authz_sample.constants.GlobalConstants;
+import com.sparta.spring_session_authn_authz_sample.constants.SessionNames;
 import com.sparta.spring_session_authn_authz_sample.dto.Authentication;
 import com.sparta.spring_session_authn_authz_sample.dto.CommonResponseBody;
 import com.sparta.spring_session_authn_authz_sample.dto.MemberResponseDto;
@@ -26,7 +26,7 @@ public class AdminController {
       HttpServletRequest request) {
     HttpSession session = request.getSession();
     Authentication authentication = (Authentication) session.getAttribute(
-        GlobalConstants.USER_AUTH);
+        SessionNames.USER_AUTH);
 
     MemberResponseDto responseDto = adminService.performLogic(authentication.getUsername());
 

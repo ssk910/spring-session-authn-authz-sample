@@ -1,6 +1,6 @@
 package com.sparta.spring_session_authn_authz_sample.config.interceptor;
 
-import com.sparta.spring_session_authn_authz_sample.constants.GlobalConstants;
+import com.sparta.spring_session_authn_authz_sample.constants.SessionNames;
 import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -42,7 +42,7 @@ public class AuthInterceptor implements HandlerInterceptor {
       throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
     }
 
-    if (session.getAttribute(GlobalConstants.USER_AUTH) == null) {
+    if (session.getAttribute(SessionNames.USER_AUTH) == null) {
       throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
     }
 

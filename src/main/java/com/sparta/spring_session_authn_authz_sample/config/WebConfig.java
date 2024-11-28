@@ -9,6 +9,16 @@ import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * create on 2024. 11. 28. create by IntelliJ IDEA.
+ *
+ * <p> 웹 설정. </p>
+ * <p> {@link WebMvcConfigurer}를 구현하여 인터셉터를 등록하합니다. </p>
+ *
+ * @author Seokgyu Hwang (Chris)
+ * @version 1.0
+ * @since 1.0
+ */
 @Configuration
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {

@@ -1,6 +1,6 @@
 package com.sparta.spring_session_authn_authz_sample.controller;
 
-import com.sparta.spring_session_authn_authz_sample.constants.GlobalConstants;
+import com.sparta.spring_session_authn_authz_sample.constants.SessionNames;
 import com.sparta.spring_session_authn_authz_sample.dto.Authentication;
 import com.sparta.spring_session_authn_authz_sample.dto.CommonResponseBody;
 import com.sparta.spring_session_authn_authz_sample.dto.JoinRequestDto;
@@ -38,7 +38,7 @@ public class AuthController {
     Authentication authentication = this.authService.login(requestDto);
 
     HttpSession session = request.getSession();
-    session.setAttribute(GlobalConstants.USER_AUTH, authentication);
+    session.setAttribute(SessionNames.USER_AUTH, authentication);
 
     return ResponseEntity
         .status(HttpStatus.OK)

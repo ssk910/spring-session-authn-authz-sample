@@ -1,6 +1,6 @@
 package com.sparta.spring_session_authn_authz_sample.config.interceptor;
 
-import com.sparta.spring_session_authn_authz_sample.constants.GlobalConstants;
+import com.sparta.spring_session_authn_authz_sample.constants.SessionNames;
 import com.sparta.spring_session_authn_authz_sample.dto.Authentication;
 import com.sparta.spring_session_authn_authz_sample.entity.Role;
 import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
@@ -45,7 +45,7 @@ public class AdminRoleInterceptor implements HandlerInterceptor {
     }
 
     Authentication authentication = (Authentication) session.getAttribute(
-        GlobalConstants.USER_AUTH);
+        SessionNames.USER_AUTH);
     Role role = authentication.getRole();
 
     if (role != Role.ADMIN) {

@@ -1,6 +1,6 @@
 package com.sparta.spring_session_authn_authz_sample.config.filter;
 
-import com.sparta.spring_session_authn_authz_sample.constants.GlobalConstants;
+import com.sparta.spring_session_authn_authz_sample.constants.SessionNames;
 import com.sparta.spring_session_authn_authz_sample.dto.Authentication;
 import com.sparta.spring_session_authn_authz_sample.entity.Role;
 import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
@@ -37,7 +37,7 @@ public class RoleFilter implements CommonAuthFilter {
     HttpSession session = findHttpSession(servletRequest);
 
     Authentication authentication = (Authentication) session.getAttribute(
-        GlobalConstants.USER_AUTH);
+        SessionNames.USER_AUTH);
 
     Role clientRole = authentication.getRole();
     if (clientRole != this.role) {
