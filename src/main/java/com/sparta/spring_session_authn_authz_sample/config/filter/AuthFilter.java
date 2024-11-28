@@ -1,4 +1,4 @@
-package com.sparta.spring_session_authn_authz_sample.filter;
+package com.sparta.spring_session_authn_authz_sample.config.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;

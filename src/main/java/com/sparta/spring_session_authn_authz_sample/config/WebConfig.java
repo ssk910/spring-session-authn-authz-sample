@@ -1,22 +1,26 @@
 package com.sparta.spring_session_authn_authz_sample.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.spring_session_authn_authz_sample.entity.Role;
 import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;
-import com.sparta.spring_session_authn_authz_sample.filter.AuthFilter;
-import com.sparta.spring_session_authn_authz_sample.filter.RoleFilter;
-import com.sparta.spring_session_authn_authz_sample.interceptor.AdminRoleInterceptor;
-import com.sparta.spring_session_authn_authz_sample.interceptor.AuthInterceptor;
-import com.sparta.spring_session_authn_authz_sample.interceptor.UserRoleInterceptor;
-import jakarta.servlet.Filter;
+import com.sparta.spring_session_authn_authz_sample.config.interceptor.AdminRoleInterceptor;
+import com.sparta.spring_session_authn_authz_sample.config.interceptor.AuthInterceptor;
+import com.sparta.spring_session_authn_authz_sample.config.interceptor.UserRoleInterceptor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * create on 2024. 11. 28. create by IntelliJ IDEA.
+ *
+ * <p> 웹 설정. </p>
+ * <p> {@link WebMvcConfigurer}를 구현하여 인터셉터를 등록하합니다. </p>
+ *
+ * @author Seokgyu Hwang (Chris)
+ * @version 1.0
+ * @since 1.0
+ */
 @Configuration
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
@@ -33,6 +37,9 @@ public class WebConfig implements WebMvcConfigurer {
   private final AdminRoleInterceptor adminRoleInterceptor;
   private final UserRoleInterceptor userRoleInterceptor;
 
+  /**
+   * 인터셉터의 우선순위와 path 패턴을 적용.
+   */
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(authInterceptor)
@@ -48,6 +55,11 @@ public class WebConfig implements WebMvcConfigurer {
         .order(Ordered.HIGHEST_PRECEDENCE + 2);
   }
 
+  /*
+   * 아래의 필터들은 인터셉터를 대신할 수 있도록 작성한 코드입니다.
+   * 사용하려면 위 addInterceptors() 메소드를 주석 처리한 후, 아래 코드들의 주석을 풀어주세요.
+   */
+  /*
   @Bean
   public FilterRegistrationBean authFilter() {
     FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
@@ -74,4 +86,5 @@ public class WebConfig implements WebMvcConfigurer {
     filterRegistrationBean.addUrlPatterns(USER_ROLE_REQUIRED_PATH_PATTERNS);
     return filterRegistrationBean;
   }
+   */
 }

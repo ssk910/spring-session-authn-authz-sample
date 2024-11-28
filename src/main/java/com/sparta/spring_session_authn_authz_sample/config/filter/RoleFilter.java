@@ -1,8 +1,9 @@
-package com.sparta.spring_session_authn_authz_sample.filter;
+package com.sparta.spring_session_authn_authz_sample.config.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.spring_session_authn_authz_sample.constants.GlobalConstants;
 import com.sparta.spring_session_authn_authz_sample.dto.Authentication;
+import com.sparta.spring_session_authn_authz_sample.constants.SessionNames;
+import com.sparta.spring_session_authn_authz_sample.dto.common.Authentication;
 import com.sparta.spring_session_authn_authz_sample.entity.Role;
 import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;
 import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
@@ -22,6 +23,9 @@ import org.springframework.http.HttpStatus;
  */
 public class RoleFilter extends AbstractFilter {
 
+  /**
+   * 권한.
+   */
   private final Role role;
 
   public RoleFilter(ObjectMapper objectMapper, GlobalExceptionHandler exceptionHandler, Role role) {
@@ -29,13 +33,12 @@ public class RoleFilter extends AbstractFilter {
     this.role = role;
   }
 
-
   @Override
   protected void check(ServletRequest servletRequest, ServletResponse servletResponse) {
     HttpSession session = findHttpSession(servletRequest);
 
     Authentication authentication = (Authentication) session.getAttribute(
-        GlobalConstants.USER_AUTH);
+        SessionNames.USER_AUTH);
 
     Role clientRole = authentication.getRole();
     if (clientRole != this.role) {
