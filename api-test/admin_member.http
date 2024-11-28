@@ -1,7 +1,7 @@
 ## "admin" 권한 사용자
 
 ## API에 필요한 변수 정의
-@usernmae = admin
+@usernmae = admin123
 @password = @dm1n
 @role = admin
 
