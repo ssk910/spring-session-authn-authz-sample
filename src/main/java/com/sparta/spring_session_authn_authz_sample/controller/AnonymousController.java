@@ -1,6 +1,6 @@
 package com.sparta.spring_session_authn_authz_sample.controller;
 
-import com.sparta.spring_session_authn_authz_sample.dto.CommonResponseBody;
+import com.sparta.spring_session_authn_authz_sample.dto.common.CommonResponseBody;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;

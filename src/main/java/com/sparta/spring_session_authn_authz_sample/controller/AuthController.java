@@ -1,8 +1,8 @@
 package com.sparta.spring_session_authn_authz_sample.controller;
 
 import com.sparta.spring_session_authn_authz_sample.constants.SessionNames;
-import com.sparta.spring_session_authn_authz_sample.dto.Authentication;
-import com.sparta.spring_session_authn_authz_sample.dto.CommonResponseBody;
+import com.sparta.spring_session_authn_authz_sample.dto.common.Authentication;
+import com.sparta.spring_session_authn_authz_sample.dto.common.CommonResponseBody;
 import com.sparta.spring_session_authn_authz_sample.dto.JoinRequestDto;
 import com.sparta.spring_session_authn_authz_sample.dto.LoginRequestDto;
 import com.sparta.spring_session_authn_authz_sample.service.AuthService;

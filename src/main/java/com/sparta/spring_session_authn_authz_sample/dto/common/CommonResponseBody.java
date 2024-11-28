@@ -1,4 +1,4 @@
-package com.sparta.spring_session_authn_authz_sample.dto;
+package com.sparta.spring_session_authn_authz_sample.dto.common;
 
 import lombok.Getter;
 

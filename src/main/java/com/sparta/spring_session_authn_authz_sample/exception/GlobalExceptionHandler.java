@@ -1,6 +1,6 @@
 package com.sparta.spring_session_authn_authz_sample.exception;
 
-import com.sparta.spring_session_authn_authz_sample.dto.CommonResponseBody;
+import com.sparta.spring_session_authn_authz_sample.dto.common.CommonResponseBody;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

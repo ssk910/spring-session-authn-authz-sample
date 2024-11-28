@@ -1,7 +1,7 @@
 package com.sparta.spring_session_authn_authz_sample.config.filter;
 
 import com.sparta.spring_session_authn_authz_sample.constants.SessionNames;
-import com.sparta.spring_session_authn_authz_sample.dto.Authentication;
+import com.sparta.spring_session_authn_authz_sample.dto.common.Authentication;
 import com.sparta.spring_session_authn_authz_sample.entity.Role;
 import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
 import jakarta.servlet.FilterChain;
