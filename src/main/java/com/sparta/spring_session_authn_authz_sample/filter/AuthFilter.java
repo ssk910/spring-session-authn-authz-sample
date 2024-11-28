@@ -13,14 +13,11 @@ package com.sparta.spring_session_authn_authz_sample.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;
-import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
-import jakarta.servlet.*;
-
-import java.io.IOException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 
 /**
- * create on 2024. 11. 28..
- * create by IntelliJ IDEA.
+ * create on 2024. 11. 28. create by IntelliJ IDEA.
  *
  * <p> 클래스 설명 </p>
  * <p> {@link } and {@link }관련 클래스 </p>

@@ -14,15 +14,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.spring_session_authn_authz_sample.dto.CommonResponseBody;
 import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;
 import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
-import jakarta.servlet.*;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-import java.io.IOException;
-
 /**
- * create on 2024. 11. 28..
+ * create on 2024. 11. 28.
  * create by IntelliJ IDEA.
  *
  * <p> 클래스 설명 </p>
@@ -35,8 +37,8 @@ import java.io.IOException;
  */
 public abstract class AbstractFilter implements CommonAuthFilter {
 
-  private ObjectMapper objectMapper;
-  private GlobalExceptionHandler exceptionHandler;
+  private final ObjectMapper objectMapper;
+  private final GlobalExceptionHandler exceptionHandler;
 
   public AbstractFilter(ObjectMapper objectMapper, GlobalExceptionHandler exceptionHandler) {
     this.objectMapper = objectMapper;
@@ -57,8 +59,8 @@ public abstract class AbstractFilter implements CommonAuthFilter {
 
   void convertErrorResponse(ServletResponse httpServletResponse, ResponseEntity<CommonResponseBody<?>> responseEntity) throws IOException, ServletException {
     HttpServletResponse response = (HttpServletResponse) httpServletResponse;
-    response.setStatus(responseEntity.getStatusCodeValue());
-    response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+    response.setStatus(responseEntity.getStatusCode().value());
+    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
     response.getWriter().write(objectMapper.writeValueAsString(responseEntity.getBody()));
   }
 }
