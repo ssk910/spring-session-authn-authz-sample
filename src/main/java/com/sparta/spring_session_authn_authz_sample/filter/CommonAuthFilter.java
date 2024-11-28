@@ -10,13 +10,22 @@
 
 package com.sparta.spring_session_authn_authz_sample.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sparta.spring_session_authn_authz_sample.dto.CommonResponseBody;
+import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;
 import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
 import jakarta.servlet.Filter;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -35,8 +44,7 @@ public interface CommonAuthFilter extends Filter {
 
   default HttpSession findHttpSession(ServletRequest request) {
     HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-    return  Optional.of(httpServletRequest.getSession(false))
+    return Optional.ofNullable(httpServletRequest.getSession(false))
             .orElseThrow(() -> new UnauthorizedException(HttpStatus.UNAUTHORIZED, "로그인 필요"));
   }
-
 }

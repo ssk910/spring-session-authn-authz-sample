@@ -11,6 +11,7 @@
 package com.sparta.spring_session_authn_authz_sample.filter;
 
 
+import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
 import jakarta.servlet.*;
 
 import java.io.IOException;
@@ -27,12 +28,9 @@ import java.io.IOException;
  * @see
  * @since 지원하는 자바버전 (ex : 5+ 5이상)
  */
-public class AuthFilter implements CommonAuthFilter {
-
+public class AuthFilter extends AbstractFilter {
   @Override
-  public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-          throws IOException, ServletException {
+  protected void check(ServletRequest servletRequest, ServletResponse servletResponse) {
     findHttpSession(servletRequest);
-    filterChain.doFilter(servletRequest, servletResponse);
   }
 }

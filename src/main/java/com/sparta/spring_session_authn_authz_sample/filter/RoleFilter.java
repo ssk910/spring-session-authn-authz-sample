@@ -18,6 +18,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -37,13 +38,12 @@ import java.io.IOException;
  * @since 지원하는 자바버전 (ex : 5+ 5이상)
  */
 @RequiredArgsConstructor
-public class RoleFilter implements CommonAuthFilter {
+public class RoleFilter extends AbstractFilter {
   private final Role role;
 
   @Override
-  public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+  protected void check(ServletRequest servletRequest, ServletResponse servletResponse) {
     HttpSession session = findHttpSession(servletRequest);
-
     Authentication authentication = (Authentication) session.getAttribute(
             GlobalConstants.USER_AUTH);
 
@@ -51,7 +51,5 @@ public class RoleFilter implements CommonAuthFilter {
     if (clientRole != this.role) {
       throw new UnauthorizedException(HttpStatus.UNAUTHORIZED, role.getName() + " 권한이 필요합니다.");
     }
-
-    filterChain.doFilter(servletRequest, servletResponse);
   }
 }
