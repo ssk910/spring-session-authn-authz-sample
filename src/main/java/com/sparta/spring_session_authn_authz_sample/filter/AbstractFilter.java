@@ -35,6 +35,14 @@ import java.io.IOException;
  */
 public abstract class AbstractFilter implements CommonAuthFilter {
 
+  private ObjectMapper objectMapper;
+  private GlobalExceptionHandler exceptionHandler;
+
+  public AbstractFilter(ObjectMapper objectMapper, GlobalExceptionHandler exceptionHandler) {
+    this.objectMapper = objectMapper;
+    this.exceptionHandler = exceptionHandler;
+  }
+
   protected abstract void check(ServletRequest servletRequest, ServletResponse servletResponse);
 
   @Override
@@ -43,25 +51,14 @@ public abstract class AbstractFilter implements CommonAuthFilter {
       check(servletRequest, servletResponse);
       filterChain.doFilter(servletRequest, servletResponse);
     } catch (UnauthorizedException e) {
-      convertErrorResponse(servletResponse, e);
+      convertErrorResponse(servletResponse, exceptionHandler.handleOtherExceptions(e));
     }
   }
 
-  void convertErrorResponse(ServletResponse httpServletResponse, UnauthorizedException e) throws IOException, ServletException {
-    ObjectMapper objectMapper = new ObjectMapper();
-    GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
-    ResponseEntity<CommonResponseBody<?>> responseEntity = exceptionHandler.handleOtherExceptions(e);
-
+  void convertErrorResponse(ServletResponse httpServletResponse, ResponseEntity<CommonResponseBody<?>> responseEntity) throws IOException, ServletException {
     HttpServletResponse response = (HttpServletResponse) httpServletResponse;
     response.setStatus(responseEntity.getStatusCodeValue());
-
-    responseEntity.getHeaders().forEach((key, values) ->
-            values.forEach(value -> response.addHeader(key, value))
-    );
-
-    String jsonResponse = objectMapper.writeValueAsString(responseEntity.getBody());
-    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-    response.setCharacterEncoding("UTF-8");
-    response.getWriter().write(jsonResponse);
+    response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
+    response.getWriter().write(objectMapper.writeValueAsString(responseEntity.getBody()));
   }
 }

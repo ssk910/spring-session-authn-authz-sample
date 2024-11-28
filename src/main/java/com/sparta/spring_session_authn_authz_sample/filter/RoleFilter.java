@@ -10,9 +10,11 @@
 
 package com.sparta.spring_session_authn_authz_sample.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.spring_session_authn_authz_sample.constants.GlobalConstants;
 import com.sparta.spring_session_authn_authz_sample.dto.Authentication;
 import com.sparta.spring_session_authn_authz_sample.entity.Role;
+import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;
 import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -37,9 +39,14 @@ import java.io.IOException;
  * @see
  * @since 지원하는 자바버전 (ex : 5+ 5이상)
  */
-@RequiredArgsConstructor
 public class RoleFilter extends AbstractFilter {
-  private final Role role;
+  private Role role;
+
+  public RoleFilter(ObjectMapper objectMapper, GlobalExceptionHandler exceptionHandler, Role role) {
+    super(objectMapper, exceptionHandler);
+    this.role = role;
+  }
+
 
   @Override
   protected void check(ServletRequest servletRequest, ServletResponse servletResponse) {

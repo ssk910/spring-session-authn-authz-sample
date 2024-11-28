@@ -11,6 +11,8 @@
 package com.sparta.spring_session_authn_authz_sample.filter;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;
 import com.sparta.spring_session_authn_authz_sample.exception.UnauthorizedException;
 import jakarta.servlet.*;
 
@@ -29,6 +31,11 @@ import java.io.IOException;
  * @since 지원하는 자바버전 (ex : 5+ 5이상)
  */
 public class AuthFilter extends AbstractFilter {
+
+  public AuthFilter(ObjectMapper objectMapper, GlobalExceptionHandler exceptionHandler) {
+    super(objectMapper, exceptionHandler);
+  }
+
   @Override
   protected void check(ServletRequest servletRequest, ServletResponse servletResponse) {
     findHttpSession(servletRequest);
