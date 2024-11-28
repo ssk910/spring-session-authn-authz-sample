@@ -47,24 +47,21 @@ public abstract class AbstractFilter implements CommonAuthFilter {
     }
   }
 
+  void convertErrorResponse(ServletResponse httpServletResponse, UnauthorizedException e) throws IOException, ServletException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
+    ResponseEntity<CommonResponseBody<?>> responseEntity = exceptionHandler.handleOtherExceptions(e);
 
-  void convertErrorResponse(ServletResponse httpServletResponse, UnauthorizedException e) throws ServletException {
-    try {
-      ObjectMapper objectMapper = new ObjectMapper();
-      GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
-      ResponseEntity<CommonResponseBody<?>> responseEntity = exceptionHandler.handleOtherExceptions(e);
+    HttpServletResponse response = (HttpServletResponse) httpServletResponse;
+    response.setStatus(responseEntity.getStatusCodeValue());
 
-      HttpServletResponse response = (HttpServletResponse) httpServletResponse;
-      response.setStatus(responseEntity.getStatusCodeValue());
-      responseEntity.getHeaders().forEach((key, values) ->
-              values.forEach(value -> response.addHeader(key, value))
-      );
-      String jsonResponse = objectMapper.writeValueAsString(responseEntity.getBody());
-      response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-      response.setCharacterEncoding("UTF-8");
-      response.getWriter().write(jsonResponse);
-    } catch (IOException ex) {
-      throw new ServletException(ex);
-    }
+    responseEntity.getHeaders().forEach((key, values) ->
+            values.forEach(value -> response.addHeader(key, value))
+    );
+
+    String jsonResponse = objectMapper.writeValueAsString(responseEntity.getBody());
+    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+    response.setCharacterEncoding("UTF-8");
+    response.getWriter().write(jsonResponse);
   }
 }
