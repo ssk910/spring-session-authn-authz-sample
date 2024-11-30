@@ -14,13 +14,20 @@ import jakarta.servlet.ServletResponse;
  * @version 1.0
  * @since 1.0
  */
-public class BaseAuthFilter extends AbstractFilter {
+public class AuthFilter extends AbstractFilter {
 
-  public BaseAuthFilter(ObjectMapper objectMapper, GlobalExceptionHandler exceptionHandler) {
+  /**
+   * 생성자.
+   */
+  public AuthFilter(ObjectMapper objectMapper, GlobalExceptionHandler exceptionHandler) {
     super(objectMapper, exceptionHandler);
   }
 
-  protected void check(ServletRequest servletRequest, ServletResponse servletResponse) {
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected void authorize(ServletRequest servletRequest, ServletResponse servletResponse) {
     findHttpSession(servletRequest);
   }
 }

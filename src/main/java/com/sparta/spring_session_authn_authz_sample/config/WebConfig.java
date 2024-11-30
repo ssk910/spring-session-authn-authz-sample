@@ -1,7 +1,7 @@
 package com.sparta.spring_session_authn_authz_sample.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.spring_session_authn_authz_sample.config.filter.BaseAuthFilter;
+import com.sparta.spring_session_authn_authz_sample.config.filter.AuthFilter;
 import com.sparta.spring_session_authn_authz_sample.config.filter.RoleFilter;
 import com.sparta.spring_session_authn_authz_sample.entity.Role;
 import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;
@@ -35,19 +35,21 @@ public class WebConfig {
   private static final String[] ADMIN_ROLE_REQUIRED_PATH_PATTERNS = {"/api/admins/*"};
   private static final String[] USER_ROLE_REQUIRED_PATH_PATTERNS = {"/api/users/*"};
 
-  /*
-   * 아래의 필터들은 인터셉터를 대신할 수 있도록 작성한 코드입니다.
-   * 사용하려면 위 addInterceptors() 메소드를 주석 처리한 후, 아래 코드들의 주석을 풀어주세요.
+  /**
+   * 로그인 관련 필터를 등록합니다.
    */
   @Bean
   public FilterRegistrationBean baseAuthFilter() {
     FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-    filterRegistrationBean.setFilter(new BaseAuthFilter(objectMapper, exceptionHandler));
+    filterRegistrationBean.setFilter(new AuthFilter(objectMapper, exceptionHandler));
     filterRegistrationBean.setOrder(Ordered.HIGHEST_PRECEDENCE);
     filterRegistrationBean.addUrlPatterns(AUTH_REQUIRED_PATH_PATTERNS);
     return filterRegistrationBean;
   }
 
+  /**
+   * 관리자 권한 필터를 등록합니다.
+   */
   @Bean
   public FilterRegistrationBean adminRoleFilter() {
     FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
@@ -57,6 +59,9 @@ public class WebConfig {
     return filterRegistrationBean;
   }
 
+  /**
+   * 유저 권한 필터를 등록합니다.
+   */
   @Bean
   public FilterRegistrationBean userRoleFilter() {
     FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();

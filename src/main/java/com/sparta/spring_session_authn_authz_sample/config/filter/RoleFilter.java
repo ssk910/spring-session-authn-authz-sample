@@ -27,17 +27,21 @@ public class RoleFilter extends AbstractFilter {
    */
   private final Role role;
 
+  /**
+   * 생성자.
+   */
   public RoleFilter(ObjectMapper objectMapper, GlobalExceptionHandler exceptionHandler, Role role) {
     super(objectMapper, exceptionHandler);
     this.role = role;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
-  protected void check(ServletRequest servletRequest, ServletResponse servletResponse) {
+  protected void authorize(ServletRequest servletRequest, ServletResponse servletResponse) {
     HttpSession session = findHttpSession(servletRequest);
-
-    Authentication authentication = (Authentication) session.getAttribute(
-        SessionNames.USER_AUTH);
+    Authentication authentication = (Authentication) session.getAttribute(SessionNames.USER_AUTH);
 
     Role clientRole = authentication.getRole();
     if (clientRole != this.role) {

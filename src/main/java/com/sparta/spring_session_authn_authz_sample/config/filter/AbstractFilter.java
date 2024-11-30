@@ -25,43 +25,72 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 /**
- * create on 2024. 11. 28.
- * create by IntelliJ IDEA.
+ * create on 2024. 11. 28. create by IntelliJ IDEA.
  *
- * <p> 클래스 설명 </p>
- * <p> {@link } and {@link }관련 클래스 </p>
+ * <p> 세션을 이용한 공통 필터. </p>
  *
  * @author Hochan Son
  * @version 1.0
- * @since 지원하는 자바버전 (ex : 5+ 5이상)
+ * @since 1.0
  */
-public abstract class AbstractFilter implements CommonFilter {
+public abstract class AbstractFilter implements SessionFilter {
 
+  /**
+   * Object mapper.
+   */
   private final ObjectMapper objectMapper;
+
+  /**
+   * 예외 핸들러.
+   */
   private final GlobalExceptionHandler exceptionHandler;
 
+  /**
+   * 생성자.
+   */
   public AbstractFilter(ObjectMapper objectMapper, GlobalExceptionHandler exceptionHandler) {
     this.objectMapper = objectMapper;
     this.exceptionHandler = exceptionHandler;
   }
 
-  protected abstract void check(ServletRequest servletRequest, ServletResponse servletResponse);
+  /**
+   * 인가를 수행합니다.
+   *
+   * @param servletRequest  {@code ServletRequest} 객체
+   * @param servletResponse {@code ServletResponse} 객체
+   */
+  protected abstract void authorize(ServletRequest servletRequest, ServletResponse servletResponse);
 
+  /**
+   * <p>인가를 수행하고, 통과되지 못하면 {@link GlobalExceptionHandler}를 이용해 에러 메세지를 담아 response를 보냅니다.</p>
+   * {@inheritDoc}
+   */
   @Override
-  public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+  public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
+      FilterChain filterChain) throws IOException, ServletException {
     try {
-      check(servletRequest, servletResponse);
+      authorize(servletRequest, servletResponse);
       filterChain.doFilter(servletRequest, servletResponse);
     } catch (UnauthorizedException e) {
-      convertErrorResponse(servletResponse, exceptionHandler.handleUnauthorizedException(e));
+      writeResponse(servletResponse, exceptionHandler.handleUnauthorizedException(e));
     }
   }
 
-  void convertErrorResponse(ServletResponse httpServletResponse, ResponseEntity<CommonResponseBody<?>> responseEntity) throws IOException {
-    HttpServletResponse response = (HttpServletResponse) httpServletResponse;
+  /**
+   * 입력받은 {@code responseEntity}를 body로 갖는 response를 만듭니다.
+   *
+   * @param servletResponse {@code ServletResponse} 객체
+   * @param responseEntity  response body에 담길 {@code ResponseEntity<CommonResponseBody<?>>} 객체
+   * @throws IOException response 생성에 실패했을 경우
+   */
+  void writeResponse(ServletResponse servletResponse,
+      ResponseEntity<CommonResponseBody<?>> responseEntity) throws IOException {
+    HttpServletResponse response = (HttpServletResponse) servletResponse;
+
     response.setStatus(responseEntity.getStatusCode().value());
     response.setContentType(MediaType.APPLICATION_JSON_VALUE);
     response.setCharacterEncoding(StandardCharsets.UTF_8.displayName());
+
     response.getWriter().write(objectMapper.writeValueAsString(responseEntity.getBody()));
   }
 }
