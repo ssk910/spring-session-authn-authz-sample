@@ -35,7 +35,7 @@ import org.springframework.http.ResponseEntity;
  * @version 1.0
  * @since 지원하는 자바버전 (ex : 5+ 5이상)
  */
-public abstract class AbstractFilter implements AuthFilter {
+public abstract class AbstractFilter implements CommonFilter {
 
   private final ObjectMapper objectMapper;
   private final GlobalExceptionHandler exceptionHandler;
