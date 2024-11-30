@@ -1,14 +1,16 @@
 package com.sparta.spring_session_authn_authz_sample.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.spring_session_authn_authz_sample.config.interceptor.AdminRoleInterceptor;
-import com.sparta.spring_session_authn_authz_sample.config.interceptor.AuthInterceptor;
-import com.sparta.spring_session_authn_authz_sample.config.interceptor.UserRoleInterceptor;
+import com.sparta.spring_session_authn_authz_sample.config.filter.BaseAuthFilter;
+import com.sparta.spring_session_authn_authz_sample.config.filter.RoleFilter;
+import com.sparta.spring_session_authn_authz_sample.entity.Role;
 import com.sparta.spring_session_authn_authz_sample.exception.GlobalExceptionHandler;
+import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -23,7 +25,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 @RequiredArgsConstructor
-public class WebConfig implements WebMvcConfigurer {
+public class WebConfig {
 
   private final ObjectMapper objectMapper;
   private final GlobalExceptionHandler exceptionHandler;
@@ -33,33 +35,10 @@ public class WebConfig implements WebMvcConfigurer {
   private static final String[] ADMIN_ROLE_REQUIRED_PATH_PATTERNS = {"/api/admins/*"};
   private static final String[] USER_ROLE_REQUIRED_PATH_PATTERNS = {"/api/users/*"};
 
-  private final AuthInterceptor authInterceptor;
-  private final AdminRoleInterceptor adminRoleInterceptor;
-  private final UserRoleInterceptor userRoleInterceptor;
-
-  /**
-   * 인터셉터의 우선순위와 path 패턴을 적용.
-   */
-  @Override
-  public void addInterceptors(InterceptorRegistry registry) {
-    registry.addInterceptor(authInterceptor)
-        .addPathPatterns(AUTH_REQUIRED_PATH_PATTERNS)
-        .order(Ordered.HIGHEST_PRECEDENCE);
-
-    registry.addInterceptor(adminRoleInterceptor)
-        .addPathPatterns(ADMIN_ROLE_REQUIRED_PATH_PATTERNS)
-        .order(Ordered.HIGHEST_PRECEDENCE + 1);
-
-    registry.addInterceptor(userRoleInterceptor)
-        .addPathPatterns(USER_ROLE_REQUIRED_PATH_PATTERNS)
-        .order(Ordered.HIGHEST_PRECEDENCE + 2);
-  }
-
   /*
    * 아래의 필터들은 인터셉터를 대신할 수 있도록 작성한 코드입니다.
    * 사용하려면 위 addInterceptors() 메소드를 주석 처리한 후, 아래 코드들의 주석을 풀어주세요.
    */
-  /*
   @Bean
   public FilterRegistrationBean baseAuthFilter() {
     FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
@@ -86,5 +65,4 @@ public class WebConfig implements WebMvcConfigurer {
     filterRegistrationBean.addUrlPatterns(USER_ROLE_REQUIRED_PATH_PATTERNS);
     return filterRegistrationBean;
   }
-   */
 }
