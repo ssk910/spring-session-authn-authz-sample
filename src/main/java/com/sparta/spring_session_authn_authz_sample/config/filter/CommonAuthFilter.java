@@ -20,7 +20,14 @@ import java.util.Optional;
  */
 public interface CommonAuthFilter extends Filter {
 
-  default HttpSession findHttpSession(ServletRequest request) {
+  /**
+   * 입력받은 {@code ServletRequest} 객체와 연관된 세션을 리턴한다.
+   *
+   * @param request {@code ServletRequest} 객체
+   * @return 연관된 {@link HttpSession} 객체
+   * @throws UnauthorizedException 연관된 세션을 찾지 못한 경우
+   */
+  default HttpSession findHttpSession(ServletRequest request) throws UnauthorizedException {
     HttpServletRequest httpServletRequest = (HttpServletRequest) request;
     return Optional.of(httpServletRequest.getSession(false))
         .orElseThrow(() -> new UnauthorizedException(HttpStatus.UNAUTHORIZED, "로그인 필요"));
