@@ -29,7 +29,7 @@ public class UserRoleInterceptor implements HandlerInterceptor {
    * @param request  {@code HttpServletRequest}
    * @param response {@code HttpServletResponse}
    * @param handler  실행하기 위해 선택된 핸들러
-   * @return 인터셉터 체이팅 여부
+   * @return 인터셉터 체이닝 여부
    * <ul>
    *  <li>{@code true} - 다음 인터셉터 또는 핸들러를 실행.</li>
    *  <li>{@code false} - 다음 인터셉터를 실행하지 않고 중단.</li>
