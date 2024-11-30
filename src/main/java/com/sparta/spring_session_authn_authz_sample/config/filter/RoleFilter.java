@@ -29,6 +29,10 @@ public class RoleFilter extends AbstractFilter {
 
   /**
    * 생성자.
+   *
+   * @param objectMapper     {@code ObjectMapper}
+   * @param exceptionHandler {@code GlobalExceptionHandler}
+   * @param role             {@link Role}
    */
   public RoleFilter(ObjectMapper objectMapper, GlobalExceptionHandler exceptionHandler, Role role) {
     super(objectMapper, exceptionHandler);

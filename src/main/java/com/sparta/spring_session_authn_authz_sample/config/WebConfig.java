@@ -11,13 +11,11 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * create on 2024. 11. 28. create by IntelliJ IDEA.
  *
  * <p> 웹 설정. </p>
- * <p> {@link WebMvcConfigurer}를 구현하여 인터셉터를 등록하합니다. </p>
  *
  * @author Seokgyu Hwang (Chris)
  * @version 1.0
@@ -37,6 +35,8 @@ public class WebConfig {
 
   /**
    * 로그인 관련 필터를 등록합니다.
+   *
+   * @return {@link FilterRegistrationBean}
    */
   @Bean
   public FilterRegistrationBean baseAuthFilter() {
@@ -49,6 +49,8 @@ public class WebConfig {
 
   /**
    * 관리자 권한 필터를 등록합니다.
+   *
+   * @return {@link FilterRegistrationBean}
    */
   @Bean
   public FilterRegistrationBean adminRoleFilter() {
@@ -61,6 +63,8 @@ public class WebConfig {
 
   /**
    * 유저 권한 필터를 등록합니다.
+   *
+   * @return {@link FilterRegistrationBean}
    */
   @Bean
   public FilterRegistrationBean userRoleFilter() {

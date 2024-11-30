@@ -16,5 +16,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
+  /**
+   * 입력받은 유저 이름으로 {@link Member} 엔티티를 찾아 리턴합니다.
+   *
+   * @param username 유저 이름
+   * @return 조회한 엔티티 결과
+   */
   Member findByUsername(String username);
 }

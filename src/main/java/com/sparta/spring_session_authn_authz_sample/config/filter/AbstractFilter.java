@@ -47,6 +47,9 @@ public abstract class AbstractFilter implements SessionFilter {
 
   /**
    * 생성자.
+   *
+   * @param objectMapper {@code ObjectMapper}
+   * @param exceptionHandler {@code GlobalExceptionHandler}
    */
   public AbstractFilter(ObjectMapper objectMapper, GlobalExceptionHandler exceptionHandler) {
     this.objectMapper = objectMapper;

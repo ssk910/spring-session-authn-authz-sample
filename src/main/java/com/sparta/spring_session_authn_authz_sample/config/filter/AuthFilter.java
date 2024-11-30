@@ -18,6 +18,9 @@ public class AuthFilter extends AbstractFilter {
 
   /**
    * 생성자.
+   *
+   * @param objectMapper {@code ObjectMapper}
+   * @param exceptionHandler {@code GlobalExceptionHandler}
    */
   public AuthFilter(ObjectMapper objectMapper, GlobalExceptionHandler exceptionHandler) {
     super(objectMapper, exceptionHandler);
