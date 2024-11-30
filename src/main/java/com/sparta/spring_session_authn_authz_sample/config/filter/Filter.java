@@ -13,7 +13,7 @@ import java.io.IOException;
  * @version 1.0
  * @since 1.0
  */
-public class AuthFilter implements CommonAuthFilter {
+public class Filter implements CommonFilter {
 
   @Override
   public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,

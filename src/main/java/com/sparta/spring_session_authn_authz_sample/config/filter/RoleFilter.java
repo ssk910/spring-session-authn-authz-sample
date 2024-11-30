@@ -24,7 +24,7 @@ import java.io.IOException;
  * @since 1.0
  */
 @RequiredArgsConstructor
-public class RoleFilter implements CommonAuthFilter {
+public class RoleFilter implements CommonFilter {
 
   /**
    * 권한.
