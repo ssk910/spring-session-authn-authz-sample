@@ -81,5 +81,5 @@ public class WebConfig implements WebMvcConfigurer {
     filterRegistrationBean.addUrlPatterns(USER_ROLE_REQUIRED_PATH_PATTERNS);
     return filterRegistrationBean;
   }
-   */
+  */
 }

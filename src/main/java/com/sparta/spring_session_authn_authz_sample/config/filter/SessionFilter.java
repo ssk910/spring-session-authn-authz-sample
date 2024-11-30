@@ -12,13 +12,13 @@ import java.util.Optional;
 /**
  * create on 2024. 11. 28. create by IntelliJ IDEA.
  *
- * <p> 공통 필터. </p>
+ * <p> 세션을 다루는 필터. </p>
  *
  * @author Hochan Son
  * @version 1.0
  * @since 1.0
  */
-public interface CommonFilter extends Filter {
+public interface SessionFilter extends Filter {
 
   /**
    * 입력받은 {@code ServletRequest} 객체와 연관된 세션을 리턴한다.
