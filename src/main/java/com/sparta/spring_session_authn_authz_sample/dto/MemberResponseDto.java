@@ -23,7 +23,7 @@ public class MemberResponseDto {
   private final String username;
 
   /**
-   * 비밀번호.
+   * 권한.
    */
   private final String role;
 
