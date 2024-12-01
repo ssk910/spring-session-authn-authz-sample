@@ -33,7 +33,8 @@ public class WebConfig implements WebMvcConfigurer {
   private final UserRoleInterceptor userRoleInterceptor;
 
   /**
-   * 인터셉터의 우선순위와 path 패턴을 적용.
+   * <p>인터셉터의 우선순위와 path 패턴을 적용.</p>
+   * {@inheritDoc}
    */
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
