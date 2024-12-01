@@ -11,7 +11,7 @@ Spring Boot를 이용한 세션 기반 인증/인가 샘플.
 
 - `HandlerInterceptor`를 이용하여 `request`가 `Controller`에 도착하기 전에 `request`를 가로채어 **인증/인가**를 처리하고 있습니다.
 - `Filter`를 이용한 코드도 주석으로 남겨두었습니다.
-- `@ExceptionHandler`를 이용해서 `request`가 `Controller`에 도착하기 전에 예외를 처리하는 방법은 `feat/add-global-error` 브랜치를 보시면 됩니다. \
+- `Filter`로 `@ExceptionHandler`를 이용해서 `request`가 `Controller`에 도착하기 전에 예외를 처리하는 방법은 `feat/add-global-error` 브랜치를 보시면 됩니다. \
   그러나 이러한 방법은 **안티 패턴이므로 권장하지 않습니다.**
 
 ## H2 콘솔 사용방법
